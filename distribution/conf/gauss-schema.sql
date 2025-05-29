@@ -19,7 +19,7 @@ CREATE TABLE config_info (
                              effect VARCHAR(64),
                              type VARCHAR(64),
                              c_schema TEXT,
-                             encrypted_data_key TEXT NOT NULL,
+                             encrypted_data_key TEXT,
                              PRIMARY KEY (id)
 );
 COMMENT ON TABLE config_info IS 'config_info';
@@ -60,7 +60,7 @@ CREATE TABLE config_info_beta (
                                   src_user TEXT,
                                   src_ip VARCHAR(50),
                                   tenant_id VARCHAR(128) DEFAULT '',
-                                  encrypted_data_key TEXT NOT NULL,
+                                  encrypted_data_key TEXT,
                                   PRIMARY KEY (id)
 );
 COMMENT ON TABLE config_info_beta IS 'config_info_beta';
@@ -144,7 +144,7 @@ CREATE TABLE his_config_info (
                                  src_ip VARCHAR(50),
                                  op_type CHAR(10),
                                  tenant_id VARCHAR(128) DEFAULT '',
-                                 encrypted_data_key TEXT NOT NULL,
+                                 encrypted_data_key TEXT,
                                  PRIMARY KEY (nid)
 );
 COMMENT ON TABLE his_config_info IS '多租户改造';
