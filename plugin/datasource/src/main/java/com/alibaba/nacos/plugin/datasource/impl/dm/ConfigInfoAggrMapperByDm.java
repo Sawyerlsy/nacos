@@ -14,22 +14,27 @@
  * limitations under the License.
  */
 
-package com.alibaba.nacos.plugin.datasource.impl.gauss;
+package com.alibaba.nacos.plugin.datasource.impl.dm;
 
 import com.alibaba.nacos.plugin.datasource.constants.DataSourceConstant;
 import com.alibaba.nacos.plugin.datasource.mapper.AbstractMapper;
-import com.alibaba.nacos.plugin.datasource.mapper.TenantInfoMapper;
+import com.alibaba.nacos.plugin.datasource.mapper.ConfigInfoAggrMapper;
 
 /**
- * The gauss implementation of TenantInfoMapper.
+ * The dm implementation of ConfigInfoAggrMapper.
  *
  * @author sawyer
  **/
+public class ConfigInfoAggrMapperByDm extends AbstractMapper implements ConfigInfoAggrMapper {
 
-public class TenantInfoMapperByGauss extends AbstractMapper implements TenantInfoMapper {
+    @Override
+    public String findConfigInfoAggrByPageFetchRows(int startRow, int pageSize) {
+        return "SELECT data_id,group_id,tenant_id,datum_id,app_name,content FROM config_info_aggr WHERE data_id= ? AND "
+                + "group_id= ? AND tenant_id= ? ORDER BY datum_id LIMIT " + startRow + "," + pageSize;
+    }
 
     @Override
     public String getDataSource() {
-        return DataSourceConstant.GAUSS;
+        return DataSourceConstant.DM;
     }
 }

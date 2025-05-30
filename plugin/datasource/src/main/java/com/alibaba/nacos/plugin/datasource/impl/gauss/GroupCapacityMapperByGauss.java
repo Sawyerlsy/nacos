@@ -21,7 +21,7 @@ import com.alibaba.nacos.plugin.datasource.mapper.AbstractMapper;
 import com.alibaba.nacos.plugin.datasource.mapper.GroupCapacityMapper;
 
 /**
- * The derby implementation of {@link GroupCapacityMapper}.
+ * The gauss implementation of {@link GroupCapacityMapper}.
  *
  * @author sawyer
  */

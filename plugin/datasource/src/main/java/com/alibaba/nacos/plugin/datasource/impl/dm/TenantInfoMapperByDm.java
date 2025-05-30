@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-package com.alibaba.nacos.plugin.datasource.impl.gauss;
+package com.alibaba.nacos.plugin.datasource.impl.dm;
 
 import com.alibaba.nacos.plugin.datasource.constants.DataSourceConstant;
 import com.alibaba.nacos.plugin.datasource.mapper.AbstractMapper;
 import com.alibaba.nacos.plugin.datasource.mapper.TenantInfoMapper;
 
 /**
- * The gauss implementation of TenantInfoMapper.
+ * The dm implementation of TenantInfoMapper.
  *
  * @author sawyer
  **/
 
-public class TenantInfoMapperByGauss extends AbstractMapper implements TenantInfoMapper {
+public class TenantInfoMapperByDm extends AbstractMapper implements TenantInfoMapper {
 
     @Override
     public String getDataSource() {
-        return DataSourceConstant.GAUSS;
+        return DataSourceConstant.DM;
     }
 }

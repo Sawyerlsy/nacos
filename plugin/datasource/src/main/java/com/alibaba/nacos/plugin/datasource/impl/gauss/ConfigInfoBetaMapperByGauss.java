@@ -21,7 +21,7 @@ import com.alibaba.nacos.plugin.datasource.mapper.AbstractMapper;
 import com.alibaba.nacos.plugin.datasource.mapper.ConfigInfoBetaMapper;
 
 /**
- * The mysql implementation of ConfigInfoBetaMapper.
+ * The gauss implementation of ConfigInfoBetaMapper.
  *
  * @author sawyer
  **/

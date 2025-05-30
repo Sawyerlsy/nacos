@@ -21,11 +21,10 @@ import com.alibaba.nacos.plugin.datasource.mapper.AbstractMapper;
 import com.alibaba.nacos.plugin.datasource.mapper.TenantCapacityMapper;
 
 /**
- * The mysql implementation of TenantCapacityMapper.
+ * The gauss implementation of TenantCapacityMapper.
  *
  * @author sawyer
  **/
-
 public class TenantCapacityMapperByGauss extends AbstractMapper implements TenantCapacityMapper {
 
     @Override

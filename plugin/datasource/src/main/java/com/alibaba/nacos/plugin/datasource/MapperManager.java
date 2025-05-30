@@ -39,28 +39,29 @@ import static com.alibaba.nacos.api.common.Constants.Exception.FIND_TABLE_ERROR_
  **/
 
 public class MapperManager {
-    
+
     private static final Logger LOGGER = LoggerFactory.getLogger(MapperManager.class);
-    
+
     public static final Map<String, Map<String, Mapper>> MAPPER_SPI_MAP = new HashMap<>();
-    
+
     private static final MapperManager INSTANCE = new MapperManager();
-    
+
     private boolean dataSourceLogEnable;
-    
+
     private MapperManager() {
         loadInitial();
     }
-    
+
     /**
      * Get the instance of MapperManager.
+     *
      * @return The instance of MapperManager.
      */
     public static MapperManager instance(boolean isDataSourceLogEnable) {
         INSTANCE.dataSourceLogEnable = isDataSourceLogEnable;
         return INSTANCE;
     }
-    
+
     /**
      * The init method.
      */
@@ -73,10 +74,12 @@ public class MapperManager {
             LOGGER.info("[MapperManager] Load Mapper({}) datasource({}) tableName({}) successfully.",
                     mapper.getClass(), mapper.getDataSource(), mapper.getTableName());
         }
+        LOGGER.info("[MapperManager] Load MapperManager successfully.Current Mapper SPI:{}", MAPPER_SPI_MAP.keySet());
     }
-    
+
     /**
      * To join mapper in MAPPER_SPI_MAP.
+     *
      * @param mapper The mapper you want join.
      */
     public static synchronized void join(Mapper mapper) {
@@ -88,7 +91,7 @@ public class MapperManager {
         MAPPER_SPI_MAP.put(mapper.getDataSource(), mapperMap);
         LOGGER.warn("[MapperManager] join successfully.");
     }
-    
+
     /**
      * Get the mapper by table name.
      *

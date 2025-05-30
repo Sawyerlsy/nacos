@@ -14,22 +14,27 @@
  * limitations under the License.
  */
 
-package com.alibaba.nacos.plugin.datasource.impl.gauss;
+package com.alibaba.nacos.plugin.datasource.impl.dm;
 
 import com.alibaba.nacos.plugin.datasource.constants.DataSourceConstant;
 import com.alibaba.nacos.plugin.datasource.mapper.AbstractMapper;
-import com.alibaba.nacos.plugin.datasource.mapper.TenantInfoMapper;
+import com.alibaba.nacos.plugin.datasource.mapper.GroupCapacityMapper;
 
 /**
- * The gauss implementation of TenantInfoMapper.
+ * The dm implementation of {@link GroupCapacityMapper}.
  *
  * @author sawyer
- **/
-
-public class TenantInfoMapperByGauss extends AbstractMapper implements TenantInfoMapper {
+ */
+public class GroupCapacityMapperByDm extends AbstractMapper implements GroupCapacityMapper {
 
     @Override
     public String getDataSource() {
-        return DataSourceConstant.GAUSS;
+        return DataSourceConstant.DM;
+    }
+
+    @Override
+    public String selectGroupInfoBySize() {
+        return "SELECT id, group_id FROM group_capacity WHERE id > ? LIMIT ?";
     }
 }
+

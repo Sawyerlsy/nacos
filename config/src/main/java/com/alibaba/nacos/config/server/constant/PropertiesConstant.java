@@ -66,6 +66,8 @@ public class PropertiesConstant {
 
     public static final String GAUSS = "gauss";
 
+    public static final String DM = "dm";
+
     public static final String POSTGRESQL = "postgresql";
 
     public static final String EMPTY_DATASOURCE_PLATFORM = "";

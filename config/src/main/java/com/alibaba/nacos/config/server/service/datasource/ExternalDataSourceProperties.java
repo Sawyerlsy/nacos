@@ -17,6 +17,7 @@ import com.alibaba.nacos.common.utils.Preconditions;
 import com.alibaba.nacos.common.utils.StringUtils;
 import com.alibaba.nacos.config.server.constant.PropertiesConstant;
 import com.alibaba.nacos.config.server.utils.DatasourcePlatformUtil;
+import com.alibaba.nacos.config.server.utils.LogUtil;
 import com.zaxxer.hikari.HikariDataSource;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.boot.context.properties.bind.Bindable;
@@ -84,6 +85,8 @@ public class ExternalDataSourceProperties {
             driverClassName = "org.postgresql.Driver";
         } else if (PropertiesConstant.GAUSS.equalsIgnoreCase(platform)) {
             driverClassName = "org.opengauss.Driver";
+        } else if (PropertiesConstant.DM.equalsIgnoreCase(platform)) {
+            driverClassName = "dm.jdbc.driver.DmDriver";
         }
 
         for (int index = 0; index < num; index++) {
@@ -102,6 +105,9 @@ public class ExternalDataSourceProperties {
             }
             dataSources.add(ds);
             callback.accept(ds);
+
+            LogUtil.DEFAULT_LOG.info("Loaded DB config: address={}, username={}, driver={}",
+                    ds.getJdbcUrl(), ds.getUsername(), ds.getDriverClassName());
         }
         Preconditions.checkArgument(CollectionUtils.isNotEmpty(dataSources), "no datasource available");
         return dataSources;

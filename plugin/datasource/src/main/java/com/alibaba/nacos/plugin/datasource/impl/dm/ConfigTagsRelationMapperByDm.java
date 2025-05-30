@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.alibaba.nacos.plugin.datasource.impl.gauss;
+package com.alibaba.nacos.plugin.datasource.impl.dm;
 
 import com.alibaba.nacos.common.utils.StringUtils;
 import com.alibaba.nacos.plugin.datasource.constants.DataSourceConstant;
@@ -24,12 +24,12 @@ import com.alibaba.nacos.plugin.datasource.mapper.ConfigTagsRelationMapper;
 import java.util.Map;
 
 /**
- * The gauss implementation of ConfigTagsRelationMapper.
+ * The dm implementation of ConfigTagsRelationMapper.
  *
  * @author sawyer
  **/
 
-public class ConfigTagsRelationMapperByGauss extends AbstractMapper implements ConfigTagsRelationMapper {
+public class ConfigTagsRelationMapperByDm extends AbstractMapper implements ConfigTagsRelationMapper {
 
     @Override
     public String findConfigInfo4PageFetchRows(Map<String, String> params, int tagSize, int startRow, int pageSize) {
@@ -105,6 +105,6 @@ public class ConfigTagsRelationMapperByGauss extends AbstractMapper implements C
 
     @Override
     public String getDataSource() {
-        return DataSourceConstant.GAUSS;
+        return DataSourceConstant.DM;
     }
 }

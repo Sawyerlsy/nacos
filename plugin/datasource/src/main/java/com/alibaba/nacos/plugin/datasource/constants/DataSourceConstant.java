@@ -28,4 +28,6 @@ public class DataSourceConstant {
     public static final String DERBY = "derby";
 
     public static final String GAUSS = "gauss";
+
+    public static final String DM = "dm";
 }

@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package com.alibaba.nacos.plugin.datasource.impl.gauss;
+package com.alibaba.nacos.plugin.datasource.impl.dm;
 
 import com.alibaba.nacos.plugin.datasource.constants.DataSourceConstant;
 import com.alibaba.nacos.plugin.datasource.mapper.AbstractMapper;
 import com.alibaba.nacos.plugin.datasource.mapper.HistoryConfigInfoMapper;
 
 /**
- * The gauss implementation of HistoryConfigInfoMapper.
+ * The dm implementation of HistoryConfigInfoMapper.
  *
  * @author sawyer
  **/
 
-public class HistoryConfigInfoMapperByGauss extends AbstractMapper implements HistoryConfigInfoMapper {
+public class HistoryConfigInfoMapperByDm extends AbstractMapper implements HistoryConfigInfoMapper {
 
     @Override
     public String removeConfigHistory() {
@@ -43,6 +43,6 @@ public class HistoryConfigInfoMapperByGauss extends AbstractMapper implements Hi
 
     @Override
     public String getDataSource() {
-        return DataSourceConstant.GAUSS;
+        return DataSourceConstant.DM;
     }
 }

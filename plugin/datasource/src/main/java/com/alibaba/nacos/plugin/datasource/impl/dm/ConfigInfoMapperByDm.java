@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.alibaba.nacos.plugin.datasource.impl.gauss;
+package com.alibaba.nacos.plugin.datasource.impl.dm;
 
 import com.alibaba.nacos.common.utils.NamespaceUtil;
 import com.alibaba.nacos.common.utils.StringUtils;
@@ -26,12 +26,12 @@ import java.sql.Timestamp;
 import java.util.Map;
 
 /**
- * The gauss implementation of ConfigInfoMapper.
+ * The dm implementation of ConfigInfoMapper.
  *
  * @author sawyer
  **/
 
-public class ConfigInfoMapperByGauss extends AbstractMapper implements ConfigInfoMapper {
+public class ConfigInfoMapperByDm extends AbstractMapper implements ConfigInfoMapper {
 
     private static final String DATA_ID = "dataId";
 
@@ -202,7 +202,7 @@ public class ConfigInfoMapperByGauss extends AbstractMapper implements ConfigInf
 
     @Override
     public String getDataSource() {
-        return DataSourceConstant.GAUSS;
+        return DataSourceConstant.DM;
     }
 
 }

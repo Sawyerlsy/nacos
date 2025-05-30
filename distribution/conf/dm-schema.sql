@@ -13,7 +13,7 @@ CREATE TABLE "config_info" (
                                "src_user" CLOB,
                                "src_ip" VARCHAR(50),
                                "app_name" VARCHAR(128),
-                               "tenant_id" VARCHAR(128) DEFAULT '',
+                               "tenant_id" VARCHAR(128) DEFAULT NULL,
                                "c_desc" VARCHAR(256),
                                "c_use" VARCHAR(64),
                                "effect" VARCHAR(64),
@@ -36,7 +36,7 @@ CREATE TABLE "config_info_aggr" (
                                     "content" CLOB NOT NULL,
                                     "gmt_modified" DATETIME NOT NULL,
                                     "app_name" VARCHAR(128),
-                                    "tenant_id" VARCHAR(128) DEFAULT '',
+                                    "tenant_id" VARCHAR(128) DEFAULT NULL,
                                     PRIMARY KEY ("id"),
                                     CONSTRAINT "uk_configinfoaggr_datagrouptenantdatum" UNIQUE ("data_id","group_id","tenant_id","datum_id")
 ) ;
@@ -57,7 +57,7 @@ CREATE TABLE "config_info_beta" (
                                     "gmt_modified" DATETIME DEFAULT CURRENT_TIMESTAMP(),
                                     "src_user" CLOB,
                                     "src_ip" VARCHAR(50),
-                                    "tenant_id" VARCHAR(128) DEFAULT '',
+                                    "tenant_id" VARCHAR(128) DEFAULT NULL,
                                     "encrypted_data_key" CLOB,
                                     PRIMARY KEY ("id"),
                                     CONSTRAINT "uk_configinfobeta_datagrouptenant" UNIQUE ("data_id","group_id","tenant_id")
@@ -71,7 +71,7 @@ CREATE TABLE "config_info_tag" (
                                    "id" BIGINT IDENTITY(1,1) NOT NULL,
                                    "data_id" VARCHAR(255) NOT NULL,
                                    "group_id" VARCHAR(128) NOT NULL,
-                                   "tenant_id" VARCHAR(128) DEFAULT '',
+                                   "tenant_id" VARCHAR(128) DEFAULT NULL,
                                    "tag_id" VARCHAR(128) NOT NULL,
                                    "app_name" VARCHAR(128),
                                    "content" CLOB NOT NULL,
@@ -94,7 +94,7 @@ CREATE TABLE "config_tags_relation" (
                                         "tag_type" VARCHAR(64),
                                         "data_id" VARCHAR(255) NOT NULL,
                                         "group_id" VARCHAR(128) NOT NULL,
-                                        "tenant_id" VARCHAR(128) DEFAULT '',
+                                        "tenant_id" VARCHAR(128) DEFAULT NULL,
                                         "nid" BIGINT IDENTITY(1,1) NOT NULL,
                                         PRIMARY KEY ("nid"),
                                         CONSTRAINT "uk_configtagrelation_configidtag" UNIQUE ("id","tag_name","tag_type")
@@ -107,7 +107,7 @@ CREATE INDEX "idx_configtagrelation_tenant_id" ON "config_tags_relation"("tenant
 /******************************************/
 CREATE TABLE "group_capacity" (
                                   "id" BIGINT IDENTITY(1,1) NOT NULL,
-                                  "group_id" VARCHAR(128) NOT NULL DEFAULT '',
+                                  "group_id" VARCHAR(128) NOT NULL DEFAULT NULL,
                                   "quota" INT DEFAULT 0,
                                   "usage" INT DEFAULT 0,
                                   "max_size" INT DEFAULT 0,
@@ -137,7 +137,7 @@ CREATE TABLE "his_config_info" (
                                    "src_user" CLOB,
                                    "src_ip" VARCHAR(50),
                                    "op_type" CHAR(10),
-                                   "tenant_id" VARCHAR(128) DEFAULT '',
+                                   "tenant_id" VARCHAR(128) DEFAULT NULL,
                                    "encrypted_data_key" CLOB,
                                    PRIMARY KEY ("nid")
 ) ;
@@ -151,7 +151,7 @@ CREATE INDEX "idx_did" ON "his_config_info"("data_id");
 /******************************************/
 CREATE TABLE "tenant_capacity" (
                                    "id" BIGINT IDENTITY(1,1) NOT NULL,
-                                   "tenant_id" VARCHAR(128) NOT NULL DEFAULT '',
+                                   "tenant_id" VARCHAR(128) NOT NULL DEFAULT NULL,
                                    "quota" INT DEFAULT 0,
                                    "usage" INT DEFAULT 0,
                                    "max_size" INT DEFAULT 0,
@@ -171,8 +171,8 @@ CREATE TABLE "tenant_capacity" (
 CREATE TABLE "tenant_info" (
                                "id" BIGINT IDENTITY(1,1) NOT NULL,
                                "kp" VARCHAR(128) NOT NULL,
-                               "tenant_id" VARCHAR(128) DEFAULT '',
-                               "tenant_name" VARCHAR(128) DEFAULT '',
+                               "tenant_id" VARCHAR(128) DEFAULT NULL,
+                               "tenant_name" VARCHAR(128) DEFAULT NULL,
                                "tenant_desc" VARCHAR(256),
                                "create_source" VARCHAR(32),
                                "gmt_create" BIGINT NOT NULL,
