@@ -35,7 +35,7 @@ CREATE TABLE `config_info` (
   `effect` varchar(64) DEFAULT NULL,
   `type` varchar(64) DEFAULT NULL,
   `c_schema` text,
-  `encrypted_data_key` text NOT NULL COMMENT '秘钥',
+  `encrypted_data_key` text NULL COMMENT '秘钥',
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_configinfo_datagrouptenant` (`data_id`,`group_id`,`tenant_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='config_info';
@@ -75,7 +75,7 @@ CREATE TABLE `config_info_beta` (
   `src_user` text COMMENT 'source user',
   `src_ip` varchar(50) DEFAULT NULL COMMENT 'source ip',
   `tenant_id` varchar(128) DEFAULT '' COMMENT '租户字段',
-  `encrypted_data_key` text NOT NULL COMMENT '秘钥',
+  `encrypted_data_key` text NULL COMMENT '秘钥',
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_configinfobeta_datagrouptenant` (`data_id`,`group_id`,`tenant_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='config_info_beta';
@@ -155,7 +155,7 @@ CREATE TABLE `his_config_info` (
   `src_ip` varchar(50) DEFAULT NULL,
   `op_type` char(10) DEFAULT NULL,
   `tenant_id` varchar(128) DEFAULT '' COMMENT '租户字段',
-  `encrypted_data_key` text NOT NULL COMMENT '秘钥',
+  `encrypted_data_key` text NULL COMMENT '秘钥',
   PRIMARY KEY (`nid`),
   KEY `idx_gmt_create` (`gmt_create`),
   KEY `idx_gmt_modified` (`gmt_modified`),
@@ -182,7 +182,10 @@ CREATE TABLE `tenant_capacity` (
   UNIQUE KEY `uk_tenant_id` (`tenant_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='租户容量信息表';
 
-
+/******************************************/
+/*   数据库全名 = nacos_config   */
+/*   表名称 = tenant_info   */
+/******************************************/
 CREATE TABLE `tenant_info` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `kp` varchar(128) NOT NULL COMMENT 'kp',
@@ -197,18 +200,30 @@ CREATE TABLE `tenant_info` (
   KEY `idx_tenant_id` (`tenant_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='tenant_info';
 
+/******************************************/
+/*   数据库全名 = nacos_config   */
+/*   表名称 = users   */
+/******************************************/
 CREATE TABLE `users` (
 	`username` varchar(50) NOT NULL PRIMARY KEY,
 	`password` varchar(500) NOT NULL,
 	`enabled` boolean NOT NULL
 );
 
+/******************************************/
+/*   数据库全名 = nacos_config   */
+/*   表名称 = roles   */
+/******************************************/
 CREATE TABLE `roles` (
 	`username` varchar(50) NOT NULL,
 	`role` varchar(50) NOT NULL,
 	UNIQUE INDEX `idx_user_role` (`username` ASC, `role` ASC) USING BTREE
 );
 
+/******************************************/
+/*   数据库全名 = nacos_config   */
+/*   表名称 = permissions   */
+/******************************************/
 CREATE TABLE `permissions` (
     `role` varchar(50) NOT NULL,
     `resource` varchar(255) NOT NULL,
