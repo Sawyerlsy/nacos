@@ -1,7 +1,7 @@
 name: Sync All Branches & Releases to Gitee
 on:
   push:
-    branches: '*'  # 监听所有分支的推送
+    branches: ['v2.2.3-localization']  # 监听所有分支的推送
   release:
     types: [published]  # 监听 Release 发布事件
 
