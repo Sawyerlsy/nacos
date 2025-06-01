@@ -43,15 +43,15 @@ jobs:
 
   # 6. 同步 Release 附件（二进制/安装包等）
   sync-release-assets:
-    needs: sync-code-and-tags  # 依赖代码同步完成
     runs-on: ubuntu-latest
+    permissions:
+      contents: read  # 关键权限
     steps:
-      # 下载 Release 附件资源
       - name: Download Release Assets
-        uses: actions/download-release-assets@v2
+        uses: actions/download-release-assets@v4  # 升级到 v4
         with:
           repo: ${{ github.repository }}
-          tag: ${{ github.ref_name }}  # 当前 Release 标签名
+          tag: ${{ github.ref_name }}
           path: release-assets
 
       # 上传到 Gitee Release
