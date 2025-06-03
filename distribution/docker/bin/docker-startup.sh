@@ -60,7 +60,7 @@ function set_default_db_params() {
 
     case "${db_type}" in
         mysql)
-            export DB_PARAM="useUnicode=true&characterEncoding=utf8mb4&connectTimeout=1000&socketTimeout=3000"
+            export DB_PARAM="useUnicode=true&characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000"
             DB_PARAM+="&zeroDateTimeBehavior=convertToNull&autoReconnect=true&serverTimezone=Asia/Shanghai"
             DB_PARAM+="&useSSL=${ssl_enabled}"
             ;;
