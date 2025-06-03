@@ -36,7 +36,7 @@ ENV MODE="cluster" \
     TOMCAT_ACCESSLOG_ENABLED="false" \
     TIME_ZONE="Asia/Shanghai"
 
-ARG NACOS_VERSION=v2.2.3-localization-alpha.1
+ARG NACOS_VERSION=v2.2.3-local
 ARG HOT_FIX_FLAG=""
 
 WORKDIR $BASE_DIR
