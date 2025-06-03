@@ -27,6 +27,53 @@ function print_servers() {
     sleep 30
   fi
 }
+
+function set_db_protocol() {
+    local db_type=$(echo "${SPRING_DATASOURCE_PLATFORM}" | tr '[:upper:]' '[:lower:]')  # 统一转为小写
+    case "${db_type}" in
+        gauss|opengauss)
+            export DB_PROTOCOL="opengauss"
+            ;;
+        dm|dameng)
+            export DB_PROTOCOL="dm"
+            ;;
+        *)
+            export DB_PROTOCOL="${db_type:-mysql}"
+            ;;
+    esac
+    echo "DB_PROTOCOL set to: ${DB_PROTOCOL}"
+}
+
+function set_default_db_port() {
+    case "${SPRING_DATASOURCE_PLATFORM,,}" in
+        gauss|opengauss) export DEFAULT_DB_PORT=8000 ;;
+        dm|dameng) export DEFAULT_DB_PORT=5236 ;;
+        *) export DEFAULT_DB_PORT=3306 ;;
+    esac
+}
+
+function set_default_db_params() {
+    [ -n "${DB_PARAM}" ] && return 0
+
+    local db_type=$(echo "${SPRING_DATASOURCE_PLATFORM:-mysql}" | tr '[:upper:]' '[:lower:]')
+    local ssl_enabled="${DB_USE_SSL:-false}"
+
+    case "${db_type}" in
+        mysql)
+            export DB_PARAM="characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useSSL=${ssl_enabled}"
+            ;;
+        gauss|opengauss)
+            export DB_PARAM="characterEncoding=utf8&connectTimeout=2000&socketTimeout=5000&useUnicode=true&ssl=${ssl_enabled}&serverTimezone=Asia/Shanghai"
+            ;;
+        dm|dameng)
+            export DB_PARAM="useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=${ssl_enabled}&autoReconnect=true&serverTimezone=GMT%2B8"
+            ;;
+        *)
+            export DB_PARAM=""
+            ;;
+    esac
+    echo "Using default DB_PARAM for ${db_type}: ${DB_PARAM}"
+}
 #===========================================================================================
 # JVM Configuration
 #===========================================================================================
@@ -99,6 +146,10 @@ JAVA_OPT="${JAVA_OPT} --spring.config.additional-location=${CUSTOM_SEARCH_LOCATI
 JAVA_OPT="${JAVA_OPT} --spring.config.name=${CUSTOM_SEARCH_NAMES}"
 JAVA_OPT="${JAVA_OPT} --logging.config=${BASE_DIR}/conf/nacos-logback.xml"
 JAVA_OPT="${JAVA_OPT} --server.max-http-header-size=524288"
+
+set_db_protocol
+set_default_db_port
+set_default_db_params
 
 echo "Nacos is starting, you can docker logs your container"
 exec $JAVA ${JAVA_OPT}
