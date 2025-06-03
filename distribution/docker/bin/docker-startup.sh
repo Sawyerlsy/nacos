@@ -60,19 +60,26 @@ function set_default_db_params() {
 
     case "${db_type}" in
         mysql)
-            export DB_PARAM="characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useSSL=${ssl_enabled}"
+            export DB_PARAM="useUnicode=true&characterEncoding=utf8mb4&connectTimeout=1000&socketTimeout=3000"
+            DB_PARAM+="&zeroDateTimeBehavior=convertToNull&autoReconnect=true&serverTimezone=Asia/Shanghai"
+            DB_PARAM+="&useSSL=${ssl_enabled}"
             ;;
         gauss|opengauss)
-            export DB_PARAM="characterEncoding=utf8&connectTimeout=2000&socketTimeout=5000&useUnicode=true&ssl=${ssl_enabled}&serverTimezone=Asia/Shanghai"
+            local ssl_mode="disable"
+            [[ "${ssl_enabled}" == "true" ]] && ssl_mode="require"
+            export DB_PARAM="characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000"
+            DB_PARAM+="&sslmode=${ssl_mode}&timezone=Asia/Shanghai&extra_float_digits=0"
             ;;
         dm|dameng)
-            export DB_PARAM="useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=${ssl_enabled}&autoReconnect=true&serverTimezone=GMT%2B8"
+            export DB_PARAM="useUnicode=true&characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000"
+            DB_PARAM+="&autoReconnect=true&localTimezone=480&useSSL=${ssl_enabled}"
             ;;
         *)
             export DB_PARAM=""
             ;;
     esac
-    echo "Using default DB_PARAM for ${db_type}: ${DB_PARAM}"
+    echo "DB_TYPE: ${db_type} | SSL_ENABLED: ${ssl_enabled}"
+    echo "Generated DB_PARAM: ${DB_PARAM}"
 }
 #===========================================================================================
 # JVM Configuration
