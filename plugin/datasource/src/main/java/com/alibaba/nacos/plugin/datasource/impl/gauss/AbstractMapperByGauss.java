@@ -14,22 +14,20 @@
  * limitations under the License.
  */
 
-package com.alibaba.nacos.plugin.datasource.constants;
+package com.alibaba.nacos.plugin.datasource.impl.gauss;
+
+import com.alibaba.nacos.plugin.datasource.enums.guss.TrustedGaussFunctionEnum;
+import com.alibaba.nacos.plugin.datasource.mapper.AbstractMapper;
 
 /**
- * The data source name.
+ * The abstract mysql mapper contains CRUD methods.
  *
- * @author hyx
+ * @author blake.qiu
  **/
+public abstract class AbstractMapperByGauss extends AbstractMapper {
 
-public class DataSourceConstant {
-    public static final String MYSQL = "mysql";
-
-    public static final String DERBY = "derby";
-
-    public static final String GAUSS = "gauss";
-
-    public static final String DM = "dm";
-
-    public static final String POSTGRESQL = "postgresql";
+    @Override
+    public String getFunction(String functionName) {
+        return TrustedGaussFunctionEnum.getFunctionByName(functionName);
+    }
 }
